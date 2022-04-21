@@ -785,3 +785,191 @@ player1.playAGame();
 // So we can see the multiple Inheritance being achieved.
 ------------------------------------------------------------------------------------------------------------------------------------
 
+import java.util.Scanner;
+public class UserInput {
+    public static void main(String args[]){
+     Scanner scan=new Scanner(System.in);
+    }
+ }
+
+/* In the above example , user defined class UserInput is in default package ( class without a package declaration ) whereas
+Scanner class is in java.util package. As they are in different packages we have to write the import statement.
+
+ Demo.java
+ public class Demo {  }
+
+
+ Main.java
+ public class Main{
+  public static void main(String args[]){
+   Demo demo=new Demo();
+  }
+}
+
+// In the above code both Demo class and Main class are in the same default package and that is the reason for using Demo class
+// in the Main class we dont need any import statement.
+
+Let us create a package called mypack1. Within the package we created a class called Hello.
+
+package mypack1;
+
+public class Hello {
+public void display() {
+	System.out.println("Hello");
+}
+}
+
+Let is create one more class called Main1 but it will be in the default package.
+
+import mypack1.Hello;
+
+public class Main1 {
+
+	public static void main(String[] args) {
+	   Hello hello=new Hello();
+	    hello.display();
+	   
+	}
+}
+
+// In the above code we can observe that as Hello class is not in the same package of Main1, we have to write the import statement.
+
+---------------------------------------------------------------------------------------------------------------------------
+Let us create another package called mypack2 and Create a class Main within the package mypack2.
+package mypack2;
+
+import mypack1.Hello;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Hello hello=new Hello();
+		hello.display();
+	}
+
+}
+/* In the example above both Main and Hello are in packages defined by the code. Main is in mypack2 and Hello is in mypack1. */
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+package demo.mypack;
+
+public class Hello {
+   public static void main(String args[]){
+
+  }
+}
+-------------------------------------------------------------------------------------------------------------------------
+
+ package mypackage1;
+
+public class A {
+  private int a;
+  int b;
+  protected int c;
+  public int d;
+  
+  public void display()
+  {
+	  System.out.println(a);
+	  System.out.println(b);
+	  System.out.println(c);
+	  System.out.println(d);
+
+	  
+  }
+}
+/* in the above code class A is within the package mypackage1. The class is having members of all the access specifier.
+  we can see that private,default,protected and public are accessible in the same class. */
+
+package mypackage1;
+
+public class B {
+
+	  public void disp() {
+		  A a=new A();
+		 System.out.println(a.a); // The field A.a is not visible
+		 System.out.println(a.b);
+		 System.out.println(a.c);
+		 System.out.println(a.d);
+	  }
+}
+
+/* We have class B in the same package as that of class A. The class B is not a sub class of class A. So we can see that
+ only the private member of class A is not accessible from class B */
+
+package mypackage1;
+
+public class C extends A {
+  public void display() {
+	  System.out.println(a);
+	  System.out.println(b);
+	  System.out.println(c);
+	  System.out.println(d);
+  }
+}
+/*  We created a child class C of class A. Both A and C are in the same package. The class C is able to access all the
+ members of the class A excluding the private member */
+
+
+package mypackage2;
+
+import mypackage1.A;
+
+public class D {
+	 public void disp() {
+		  A a=new A();
+		 System.out.println(a.a); 
+		 System.out.println(a.b);
+		 System.out.println(a.c);
+		 System.out.println(a.d);
+	  }
+}
+/* The above class D is in different package as that of A. D is a non derived class. The class D can access only the public member
+of class A */
+
+package mypackage2;
+
+import mypackage1.A;
+
+public class E extends A {
+	public void display() {
+		  System.out.println(a);
+		  System.out.println(b);
+		  System.out.println(c);
+		  System.out.println(d);
+	  }
+}
+
+/* Class E is a subclass of class A. class E is in different package as that of A. only the protected member and public member are
+accessible */
+
+
+[ protected members are accessed by the subclasses in the same package or different package and also by the non sub class in the
+same package example class B]
+[ default member is accessible in the same package. The class can be a subclass or a non subclass. default member is restricted
+within a package that means if the classes are in the same package , default member can be accessed ]
+[ private is accessible in the same class ]
+[ public can be accessed from anywhere ]
+
+Anything declared as public can be accessed from anywhere
+
+Anything declared as private can be accessed only within that class
+
+If access modifier is not mentioned, an element is accessible to all the classes in the same package
+
+Anything declared as protected can be accessible to all the classes inside the same package and to the sub classes present in a different package
+---------------------------------------------------------------------------------------------------------------------------------
+ // The below code is incorrect as we are keeping the first line as import but the first line should be with the package declaration.
+import mypackage1.A;
+package mypackage2;
+
+public class E extends A {
+	public void display() {
+		  System.out.println(a);
+		  System.out.println(b);
+		  System.out.println(c);
+		  System.out.println(d);
+	  }
+}
+
