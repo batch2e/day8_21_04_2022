@@ -690,3 +690,98 @@ public void setNum2(int num2) {
 
 // In the above code , we have seen an interface can extend multiple interfaces. But we know a class can extend only one class.
 ---------------------------------------------------------------------------------------------------------------------------
+
+public interface Interface1{}
+public interface Interface2{}
+
+public class Base{}
+
+public class Derived extends Base implements Interface1,Interface2{
+
+
+}
+
+/* A class can extend only one class but can implement multiple interfaces */
+
+
+
+---------------------------------------------------------------------------------------------------------------------------
+Basically through the help of interfaces in Java we achieve multiple inheritance.
+
+
+
+Let us take an example from daily life. Suppose we have Doctor,Teacher and Manager. Doctor, Teacher and Manager are good
+Instrument player. So we need to represent the doctor as Musician also and same with Teacher and Manager.
+
+  public interface Musician{
+           void instrumentPlay();
+  }
+
+  public interface Player{
+    void playAGame();
+  }
+
+  public class Doctor implements Musician,Player{
+  
+   public void toMedicate(){
+    System.out.prinltn("To treat patients");
+   }
+   
+  public void instrumentPlay(){
+   System.out.println("Play Sitar");
+   }
+
+    public void playAGame(){
+    System.out.println("Play Football");
+ 
+  }
+
+  public class Teacher implements Musician{
+    
+   
+   public void toTeach(){
+   System.out.println("Teaches students");
+   }
+  
+     public void instrumentPlay(){
+   System.out.println("Play Violin");
+   }
+ 
+ }
+
+  public class Manager implements Musician{
+   public void toManage(){
+   System.out.println("Manager work");
+  }
+   
+   public void instrumentPlay(){
+   System.out.println("Play Guitar");
+   }
+}  
+ 
+  Doctor doctor=new Doctor();
+  doctor.toMedicate();
+  Teacher teacher=new Teacher();
+  treacher.toTeach();
+  Manager manager=new Manager();
+  manager.toManage();
+
+// I need to represent doctor as a musician or a teacher as a musician
+
+ Musician musician1=doctor;
+ musician1.instrumentPlay();
+ musician1.toMedicate(); // the line will show compilation error because Musician interface is not having the method defined
+ Musician musician2=teacher;
+ musician1.instrumentPlay();
+ 
+
+These people are good players also
+Player player1=doctor;
+player1.playAGame();
+
+// Doctor can behave as a Doctor
+// Doctor can behave as a Musician
+// Doctor can behave as a Player too
+// So we can see the multiple Inheritance being achieved.
+------------------------------------------------------------------------------------------------------------------------------------
+
