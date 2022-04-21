@@ -510,3 +510,183 @@ public class VehicleMain {
       }
   }
 }
+---------------------------------------------------------------------------------------------------------------------------
+Interface are providing a set of protocols/rules which the classes need to adhere.
+
+public interface Calculator1 {
+   int add();
+   int subtract();
+   // public abstract int subtract();
+   // public abstract int add();
+}
+
+// Suppose in the above case we have Calculator1 as interface and it has given us
+// 2 protocols in the form of method declaration. Those methods are add and subtract..
+// The class which will implement the interface Calculator1 need to follow the 
+// protocols by overriding the method/methods just like overriding the abstract methods of abstract class.
+// Interface methods are public and abstract.
+// If we are not overriding the methods of the interface in the class which is implementing the interface,
+// the class needs to be declared as an abstract.
+// We need to override all the abstract methods of the interface in the class which is implementing the interface.  
+public class Number1 implements Calculator1 {
+  private int num1;
+  private int num2;
+
+ // setters/getters
+
+  public int add(){
+     return num1+num2;
+ }
+
+ public int subtract(){
+  return num1-num2;
+ }
+
+ public int getNum1() {
+	return num1;
+}
+
+public void setNum1(int num1) {
+	this.num1 = num1;
+}
+
+public int getNum2() {
+	return num2;
+}
+
+public void setNum2(int num2) {
+	this.num2 = num2;
+}
+
+
+}
+
+public class InterfaceDemo1{
+   public static void main(String args[]){
+     //Calculator1 calculator=new Calculator1();
+    // We cannot create an object of interface type. We can create a reference variable of interface
+    Calculator1 calculator=null;
+    Number1 number=new Number1();
+    number.setNum1(10);
+    number.setNum2(2);
+    calculator=number;  // The interface reference can store the address of the object of
+   // the class which has implemented the interface      
+   System.out.println(calculator.add());
+   System.out.println(calculator.subtract());
+   //calculator.setNum1(10);
+   //calculator.setNum2(20);
+   Number1 number2=(Number1)calculator;
+   number2.setNum1(10);
+   number2.setNum2(20);
+   // We cannot write step13 and step14 because reference is of Calculator type 
+   // and Calculator interface is not having the method setNum1 and setNum2
+   
+   }
+  }
+     
+---------------------------------------------------------------------------------------------------------------  
+
+From Java version 8, interfaces can have two other types of methods also:
+* default
+* static
+apart from the abstract methods. default and static methods can have method body.
+--------------------------------------------------------------------------------------------------------------
+public interface Calculator2 {
+   int num=20;
+  // public static final NUM=20;
+}   
+
+public class Number2 implements Calculator2 {
+  
+   public void display(){
+    System.out.println(num);
+   }
+}
+   
+ 
+
+// In interfaces we can declare variable also but they are of 
+ public static and final 
+
+
+------------------------------------------------
+
+public interface Calculator2 {
+   int divide();
+   int multiply();
+ 
+}
+
+public interface Calculator extends Calculator1,Calculator2{
+    void result();
+}
+// One interface will extend another interface. It wont implement.
+
+public class Number3 implements Calculator {
+private int num1;
+private int num2;
+
+	public int getNum1() {
+	return num1;
+}
+
+public void setNum1(int num1) {
+	this.num1 = num1;
+}
+
+public int getNum2() {
+	return num2;
+}
+
+public void setNum2(int num2) {
+	this.num2 = num2;
+}
+
+	@Override
+	public int add() {
+		// TODO Auto-generated method stub
+		return num1+num2;
+	}
+
+	@Override
+	public int subtract() {
+		// TODO Auto-generated method stub
+		return num1-num2;
+	}
+
+	@Override
+	public int divide() {
+		// TODO Auto-generated method stub
+		return num1/num2;
+	}
+
+	@Override
+	public int multiply() {
+		// TODO Auto-generated method stub
+		return num1*num2;
+	}
+
+	@Override
+	public void result() {
+		System.out.println(add());
+		System.out.println(subtract());
+		System.out.println(divide());
+		System.out.println(multiply());
+		
+	}
+
+}
+
+ public class InterfaceDemo3{
+    public static void main(String args[]){
+         Calculator calc=null;
+         Number3 number=new Number3();
+         number.setNum1(10);
+         number.setNum2(2);
+         calc=number;
+         calc.result();
+    }
+  }
+
+// In the above code , we have seen an interface can extend multiple interfaces. But we know a class can extend only one class.
+---------------------------------------------------------------------------------------------------------------------------
