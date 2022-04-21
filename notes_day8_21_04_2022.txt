@@ -1,0 +1,512 @@
+Primitive data type ====> we can compare with == only
+
+  int num1=10;
+  int num2=10;
+  if(num1==num2){}
+
+--------------------------------------------------
+Reference type:===
+
+== is used to compare whether both the reference variable are pointing to the same object or not.
+
+Student student1=new Student();
+Student student2=new Student();
+
+if(student1==student2){}    // false because both the reference variable are pointing to 
+different objects
+
+
+1. Student student1=new Student();
+2. Student student2=student1;
+3. System.out.println(student1==student2);  // true
+
+// In the above case both student1 and student2 are refering to the object created in Line1.
+
+Student st1=new Student(1,"Ram",80);
+Student st2=new Student(1,"Ram",80);
+
+System.out.println(st1==st2);  // false because two different objects
+System.out.println(st1.equals(st2)); // if we dont override the equals method , it will return false because it calling
+// the equals method of the Object class which again compares for the address and not check the content.
+
+// Override the equals method.Write a equals method in the class Student. The equals method which you wrote will override
+the method in the Object class and it will return true if the contents are same.
+
+System.out.println(st1.equals(st2)); // true
+--------------------------------------------------------------------------------------------------------------------------------------
+So whenever we are creating our own class like Student, Employee , Book we should override the equals method so that it
+gives true when the contents or attributes of two objects of the same class is holding the same set of values.
+--------------------------------------------------------------------------------------------------------------------------------------
+Yesterday's discussion:----
+
+* Inheritance
+* Constructor calling in Inheritance
+* Use of super keyword.
+* Polymorphism
+  ** Method overloading
+  ** Method overriding
+* Object class
+* Wrapper classes
+* final keyword 
+--------------------------------------------------------------------------------------------------------------------------------
+Suppose we have an array in which we have some values
+
+1 34000 2 40000 3 60000 4 1000 5 45000
+Display the id which is having max salary.
+
+I will provide the id of the employee and we have to return the basic pay of that employee.
+
+int max=60000;
+int pos=5;
+int id=basics[pos-1];
+return id;
+
+
+  public class Employee{
+    private static int basics[]={1,34000,2,40000,3,60000,4,1000,5,45000};
+
+    public int getTheIdofMaxSalary(){
+     int max=60000;
+     int pos=5;
+     int id=basics[pos-1];
+     return id;
+
+
+     //write your logic
+   }
+      
+   public int getSalary(int id){
+    // write your logic
+   }
+ }
+  
+ public class Tester {
+   public static void main(String args[]){
+     Employee employee=null; // employee is currently not pointing to any object
+     employee=new Employee();
+     System.out.println(employee.getTheIfofMaxSalary());
+     System.out.println(employee.getSalary());
+    }
+  }
+ 
+==========================================================================================
+
+We have a number and we have to extract first digit from the number
+
+   int id=2345;
+   int firstDigit=2;
+-----------------------------------------------------------------------------------------------------------------
+Abstract classes are the Parent class with atleast one abstract method.
+Abstract method is a method without a body.
+Abstract class can have concrete methods also. Concrete methods means , methods with body.
+ public abstract class MyClass1{
+   
+    public void display(){
+    System.out.println("Hello"); 
+    } 
+    public abstract void hello();
+  }
+In the above code , display is a method with a body and hello is a method without a body.
+ 
+----------------------------------------------------------------------------------------------------------------------
+Let us write a code to understand the usage of abstract method and abstract class. Example suppose we have two Shapes Rectangle
+and Triangle. 
+
+ public class Rectangle1 {
+    private int x;
+    private int y;
+ 
+   // setters/getters
+
+   public int calculateArea(){
+     int area=x*y;
+     return area;
+    }
+
+public int getX() {
+	return x;
+}
+
+public void setX(int x) {
+	this.x = x;
+}
+
+public int getY() {
+	return y;
+}
+
+public void setY(int y) {
+	this.y = y;
+}
+ 
+ }
+
+ 
+
+public class Triangle1 {
+   private int x;
+   private int y;
+   // setters/getters
+   
+   public int calculateArea(){
+    int area=(x*y)/2;
+    return area;
+   }
+
+public int getX() {
+	return x;
+}
+
+public void setX(int x) {
+	this.x = x;
+}
+
+public int getY() {
+	return y;
+}
+
+public void setY(int y) {
+	this.y = y;
+}
+ }
+
+ 
+
+ public class DisplayArea{
+
+     public void displayArea(Rectangle1 rectangle){
+      System.out.println(rectangle.calculateArea());
+     }
+     public void displayArea(Triangle1 triangle){
+      System.out.println(triangle.calculateArea());
+     }
+     
+ }
+
+public class  RectangleTriangleMain1{
+   public static void main(String args[]){
+   Rectangle1 rectangle=new Rectangle1();
+   Triangle1 triangle=new Triangle1();
+   DisplayArea area=new DisplayArea();
+   rectangle.setX(10);
+   rectangle.setY(20);
+   area.displayArea(rectangle);
+   triangle.setX(20);
+   triangle.setY(30);
+   area.displayArea(triangle);
+   }
+}
+
+Observations:
+* declaration of x and y and setters and getters are repeated.
+Solution:
+   Create a Parent class and keep all the common attributes and methods in the 
+   parent class
+
+
+* In DisplayArea class we are writing overloaded methods which can be reduced to only 
+  one method.
+Solution:
+  Write only one method displayArea and pass the reference of the derived classes to the 
+  reference variable of Parent type Shape
+
+ public class Shape{
+    protected int x;
+    protected int y;
+    public int getX() {
+	return x;
+    }
+   public void setX(int x) {
+	this.x = x;
+    }
+   public int getY() {
+	return y;
+    }
+   public void setY(int y) {
+	this.y = y;
+    }
+ }
+
+
+ public class Rectangle2 extends Shape {
+      public int calculateArea(){
+      int area=x*y;
+      return area;
+    }
+
+ }
+
+
+public class Triangle2 extends Shape {
+    public int calculateArea(){
+    int area=(x*y)/2;
+    return area;
+   }
+}
+
+
+ public class DisplayArea2{
+     public void displayArea(Shape shape){
+      System.out.println(shape.calculateArea());  // error in this code as shape is calling calculateArea but we dont have calculateArea method in the Shape class
+     }
+ }
+ 
+public class RectangleTriangleMain2{
+   public static void main(String args[]){
+   Shape shape=null;  // The first change , we have taken a reference of Shape type
+   Rectangle2 rectangle=new Rectangle2();
+   Triangle2 triangle=new Triangle2();
+   DisplayArea2 area=new DisplayArea2();
+   rectangle.setX(10);
+   rectangle.setY(20);
+   shape=rectangle;  // Base class reference variable storing the address of the Derived class object
+   area.displayArea(shape);
+   triangle.setX(20);
+   triangle.setY(30);
+   shape=triangle;
+   area.displayArea(shape);
+   }
+}
+----------------------------------------------------------------------------------------------------------------------------
+
+ public abstract class Shape3{
+    protected int x;
+    protected int y;
+    public int getX() {
+	return x;
+    }
+   public void setX(int x) {
+	this.x = x;
+    }
+   public int getY() {
+	return y;
+    }
+   public void setY(int y) {
+	this.y = y;
+    }
+
+   public abstract int calculateArea();
+ }
+
+
+ public class Rectangle3 extends Shape3 {
+      public int calculateArea(){
+      int area=x*y;
+      return area;
+    }
+
+ }
+
+
+public class Triangle3 extends Shape3 {
+    public int calculateArea(){
+    int area=(x*y)/2;
+    return area;
+   }
+}
+
+
+ public class DisplayArea3{
+     public void displayArea(Shape3 shape){
+      System.out.println(shape.calculateArea());  
+     }
+ }
+ 
+public class RectangleTriangleMain3{
+   public static void main(String args[]){
+   Shape3 shape=null;  // The first change , we have taken a reference of Shape type
+   //Shape3 shape1=new Shape3(); // This line is not allowed as we cannot create an object of abstract class
+   // Cannot instantiate the type Shape3. The reason why we cannot create an object of Abstract class because
+   // Abstract classes are incomplete in the sense that they have abstract methods which are incomplete
+   // so if we allow to create an object of abstract class then we are increasing the probability of calling the abstract method
+   // but what will be the task perfomed , if we call an abstract method because abstract method don't have any body
+   // so nothing to perform
+   Rectangle3 rectangle=new Rectangle3();
+   Triangle3 triangle=new Triangle3();
+   DisplayArea3 area=new DisplayArea3();
+   rectangle.setX(10);
+   rectangle.setY(20);
+   shape=rectangle;  // Base class reference variable storing the address of the Derived class object
+   area.displayArea(shape);
+   triangle.setX(20);
+   triangle.setY(30);
+   shape=triangle;
+   area.displayArea(shape);
+   }
+}
+
+--------------------------------------------------------------------------------------------------------------------
+  public abstract class Base1{
+    
+    public void display(){
+     System.out.println("The display method of the abstract class");
+    }
+
+    public abstract void method();
+   }
+
+
+  public class Derived1 extends Base1 {
+    
+   public void derivedDisplay(){
+    System.out.println("I am the derived display of the Derived1");
+   }
+
+  public void method(){
+    System.out.println("I am overriding th method of the abstract class Base1");
+   }
+ }
+       
+  public class AbstractDemo1 {
+   public static void main(String args[]){
+      //Base1 base1=new Base1(); We cannot create an object of Abstract class
+      Base1 base1=new Derived1(); // The abstract class reference pointing to the Derived class object
+      base1.display();   // Yes it will show the output
+      base1.method(); // It will call the overriding method ( Derived class)
+      base1.derivedDisplay(); // no because derivedDisplay() is specific to the derived class
+      Derived1 derived=(Derived1)base1; 
+      derived.derivedDisplay();
+    }
+  }
+      
+   // You have of cup of water which is similar to the Derived class now that cup of water you can put in a glass which is 
+   // bigger than the cup. The step is similar to writing Base base=new Derived() // conversion or upcasting.
+       Again from the glass you can put the water back to the cup that step is similar to
+       Derived derived=(Derived)base;  // type casting / Downcasting 
+--------------------------------------------------------------------------------------------------------------------------------
+// If a class is extending an abstract class, it has to override the abstract method
+// of the abstract class 
+
+
+// The type Derived2 must implement the inherited abstract method Base2.method()
+  
+public abstract class Base2{
+    
+    public void display(){
+     System.out.println("The display method of the abstract class");
+    }
+
+    public abstract void method();
+   }
+
+
+  public class Derived2 extends Base2 {
+    
+   public void derivedDisplay(){
+    System.out.println("I am the derived display of the Derived1");
+   }
+
+ 
+ }
+       
+  public class AbstractDemo2 {
+   public static void main(String args[]){
+       Base2 base=new Derived2(); 
+    }
+  }
+------------------------
+
+// If a class is extending an abstract class, it has to override the abstract method/methods
+// of the abstract class if we are not overriding the abstract method in the subclass , make the subclass as an abstract class.
+ public abstract class Base3{
+    
+    public void display(){
+     System.out.println("The display method of the abstract class");
+    }
+
+    public abstract void method();
+   }
+
+
+  public class abstract Derived3 extends Base3 {
+    
+   public void derivedDisplay(){
+    System.out.println("I am the derived display of the Derived1");
+   }
+
+ 
+ }
+       
+  public class AbstractDemo3 {
+   public static void main(String args[]){
+     
+    }
+  }
+---------------------------------------------------------------------------------------------------------------------
+// A class can be made abstract without abstract method.
+// As the class is abstract we wont be able to create the object of the abstract class
+  public abstract class Base {
+
+    public void method1(){
+     System.out.println("Method1");
+   }
+  
+   public void method2(){
+    System.out.println("Method2");
+   }
+ }
+// Thus, abstract classes enforce inheritance (since they can’t be instantiated)
+
+---------------------------------------------------------------------------------------------
+
+  public class Person {
+
+
+  }
+
+  public class Employee extends Person{
+
+
+ }
+
+ public class RegularEmployee extends Employee{
+
+ }
+
+
+ public class Main {
+   public static void main(String args[]){
+      Person person=new Person();
+      System.out.println(person instanceof Person);   // is the person refering to the object of Person class
+      if(person instanceof Person){
+           System.out.println("Yes person is refering to an object of Person class");
+      }
+     Person person1=new Employee();
+     System.out.println(person1 instanceof  Person);
+     System.out.println(person1 instanceof Employee);
+     System.out.println(person1 instanceof Object);
+     System.out.println(person1 instanceof RegularEmployee);
+     }
+ }
+
+
+--------------------------
+
+public class Vechile {}
+public class Bus extends Vehicle{}
+public class Car extends Vehicle {}
+
+public class VehicleMain {
+   public static void main(String args[]){
+     Vehicle vehicle=new Bus();
+     Car car1=(Car)vehicle;
+  }
+}
+// Exception in thread "main" java.lang.ClassCastException: class Bus cannot be cast to class Car (Bus and Car are in unnamed module of loader 'app')	at VehicleMain.main(VehicleMain.java:4)
+
+public class VehicleMain {
+   public static void main(String args[]){
+     Vehicle vehicle=new Bus();
+     //Car car1=(Car)vehicle;
+      Bus bus=null;
+      Car car=null;
+      if(vehicle instanceof Bus)
+     {
+    	 bus=(Bus)vehicle;
+     }
+      else
+      {
+    	 car=(Car)car;
+      }
+  }
+}
