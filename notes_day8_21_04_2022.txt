@@ -1,3 +1,10 @@
+https://www.surveymonkey.com/r/DXQFPLH
+
+https://www.surveymonkey.com/r/DXRMJ96
+
+
+
+
 Primitive data type ====> we can compare with == only
 
   int num1=10;
@@ -972,4 +979,281 @@ public class E extends A {
 		  System.out.println(d);
 	  }
 }
+----------------------------------------------------------------------------------------------------------------------------
+Q What are the different types of errors:-
+1) Syntax error / compilation error
+2) Logical errors
+3) Runtime error / Exception
+---------------------------------------------------------------------------------------------------------------------------
+package exception;
 
+public class Demo1 {
+
+	public static void main(String[] args) {
+		
+		int num1=10;
+		int num2=0;
+		System.out.println("Before exception");
+		int result=num1/num2;
+		System.out.println("After exception");
+		
+
+	}
+
+}
+// Exception in thread "main" java.lang.ArithmeticException: / by zero
+	at exception.Demo1.main(Demo1.java:10)
+
+// In the code above the line where we wrote result=num1/num2, exception object got created. exception object is of 
+// ArithmeticException. The exception takes place during the runtime or we can say during the execution of the code. 
+// The lines/statements which we have after the line where exception takes place are not executed.
+// The code execution stops abruptly.
+----------------------------------------------------------------------------------------------------------------------------------
+
+package exception;
+
+public class Demo2 {
+
+	public static void main(String[] args) {
+		int num[]=new int[10];
+		System.out.println(num[11]);
+
+	}
+
+}
+
+//Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 11 out of bounds for length 10
+	at exception.Demo2.main(Demo2.java:7)
+// When the exception takes place in line 7, an object of ArrayIndexOutOfBoundsException is created.
+// When we write our own code and class. We create objects by writing
+   Employee emp=new Employee();
+// The Exception object is being created during the execution of the code and is handled by the exception handler which is
+// called the default handler is being provided by the JVM.
+
+// SO WE SHOULD NOT RELY ON THE DEFAULT HANDLER TO HANDLE THE EXCEPTION BUT BEING A CODE WE SHOULD
+// WRITE THE CODE FOR HANDLING THE EXCEPTION IN OUR CODE. THAT MAKES THE EXCEPTION HANDLING IN A 
+// GRACEFUL WAY RATHER THAN IN A RANDOM WAY.
+
+--------------------------------------------------------------------------------------------------
+package exception;
+
+class Book {
+	
+	public void display()
+	{
+		System.out.println("Hello");
+	}
+	
+}
+public class Demo3 {
+
+	public static void main(String[] args) {
+		Book book=null;
+		book.display();
+		
+	}
+
+}
+// Exception in thread "main" java.lang.NullPointerException: Cannot invoke "exception.Book.display()" because "book" is null
+	at exception.Demo3.main(Demo3.java:15)
+
+
+// In the above code the book reference variable is not storing the address of an object. 
+// we are calling the display method on the reference which is not pointing to any object and that
+// is the reason we get NullPointerException.
+
+--------------------------------------------------------------------------------------------------------
+package exception;
+
+public class Demo4 {
+
+	public static void main(String[] args) {
+	int num[]=new int[10];
+	for(int i=0;i<=num.length;i++)
+	{
+		System.out.println(num[i]);
+	}
+
+	}
+
+}
+// Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: Index 10 out of bounds for length 10
+	at exception.Demo4.main(Demo4.java:9)
+--------------------------------------------------------------------------------------------------------
+The runtime errors shown previously are called as exceptions and the process of handling the exceptions is known as Exception Handling. So till now in the above code we have not handled the exception explicitly within the
+code so in that case default handler which is part of JVM is working and it is handling the exception.
+-------------------------------------------------------------------------------------------------------
+// To handle the exception we write the try catch block.
+try
+{
+     // statements that may cause an exception
+}
+catch (exceptionType e) ‏
+{
+     // error handling code
+}
+/* The statements where we think exception can take place, those lines we keep it within the 
+try block. try block is followed by catch block . In the catch block we handle the exception.
+package exception;
+public class Demo5 {
+{
+public static void main(String[] args) {
+		
+		int num1=10;
+		int num2=0;
+                try
+                  {
+		      System.out.println("Before exception");
+		      int result=num1/num2;  // ArithmeticException ar=new ArithmeticException();
+                  }catch(ArithmeticException exception){
+                     System.out.println(exception.getMessage());
+                     //exception.printStackTrace();
+                   }
+		System.out.println("After exception");
+   }
+}
+
+Before exception
+/ by zero
+After exception
+// printStackTrace() ---> Will show in details including the exception class name and the line number where the exception was
+generated. printStackTrace() can be used when we are developing the code because it will show the line number where the
+actual runtime error took place. As it is giving us many information, it consumes more memory in comparison to when we 
+see the error message with getMessage. So when the code is given to the customer we should remove the printStackTrace().
+---------------------------------------------------------------------------
+
+public class Demo6 {
+
+	public static void main(String[] args) {
+	int num[]=new int[10];
+        try{
+	for(int i=0;i<=num.length;i++)
+	{
+		System.out.println(num[i]);
+	}
+        }catch(ArrayIndexOutOfBoundsException ex){
+            System.out.println(ex.getMessage());
+        }
+
+	}
+
+}
+
+-------------------------------------------------------------------------------
+
+public class Demo7 {
+
+	public static void main(String[] args) {
+	int num[]=new int[10];
+        try{
+	for(int i=0;i<=num.length;i++)
+	{
+		System.out.println(num[i]);
+	}
+        }catch(ArithmeticException ex){
+            System.out.println(ex.getMessage());
+        }
+
+	}
+
+}
+
+// In this case exception is of type ArrayIndexOutOfBoundsException but in the catch we wrote ArithmeticException. So the 
+// catch is not capable of handling the ArrayIndexOutOfBoundsException. In that case exception will be handled by the 
+// default handler which is part of JVM.
+-----------------------------------------------------------------------
+multiple catch blocks
+
+public class Demo7 {
+
+	public static void main(String[] args) {
+	int num[]=new int[10];
+        try{
+	       for(int i=0;i<=num.length;i++)
+	          {
+		      System.out.println(num[i]);
+	          }
+           }// try close
+             catch(ArithmeticException ex){
+                 System.out.println(ex.getMessage());
+           } // catch close
+             catch(ArrayIndexOutOfBounds ex){
+                 System.out.println(ex.getMessage());
+           } // catch close
+
+	} // method close
+
+}  // class close
+
+-----------------------------------------------------------------------------------------------------------------------
+package exception;
+public class Demo8 {
+
+	public static void main(String[] args) {
+	int num[]=new int[10];
+        try{
+	       for(int i=0;i<=num.length;i++)
+	          {
+		      System.out.println(num[i]);
+	          }
+           } catch(ArithmeticException ex){
+                 System.out.println(ex.getMessage());
+           } catch(ArrayIndexOutOfBoundsException ex){
+                 System.out.println(ex.getMessage());
+           } catch(Exception ex){
+                 System.out.println(ex.getMessage());
+           }
+
+	} // method close
+
+}  // class close
+--------------------------------------------------------------------------------------------------------
+
+package exception;
+public class Demo9 {
+
+	public static void main(String[] args) {
+	int num[]=new int[10];
+        try{
+	       for(int i=0;i<=num.length;i++)
+	          {
+		      System.out.println(num[i]);
+                  }
+	  }catch(Exception ex){
+                 System.out.println(ex.getMessage());
+           }
+
+	} // method close
+
+}  // class close
+// Exception is the base class or Parent class in the exception hierarchy so instead of the specific exception classes,
+we can mention the Generic/base/parent class which is Exception.
+-----------------------------------------------------------------------------------------------------------
+
+
+package exception;
+public class Demo10 {
+
+	public static void main(String[] args) {
+	int num[]=new int[10];
+        try{
+	       for(int i=0;i<=num.length;i++)
+	          {
+		      System.out.println(num[i]);
+	          }
+           } catch(Exception ex){
+                 System.out.println(ex.getMessage());
+           }catch(ArithmeticException ex){
+                 System.out.println(ex.getMessage());
+           } catch(ArrayIndexOutOfBoundsException ex){
+                 System.out.println(ex.getMessage());
+           } 
+
+	} // method close
+
+}  // class close
+
+// Unreachable catch block for ArithmeticException. It is already handled by the catch block for Exception.
+Why unreachable exception?
+As the Exception class is the Generic class or base class, it is capable of handling all the exceptions because of which
+ArithmeticException's catch block and ArrayIndexOutOfBoundsException's catch block are never reached.
